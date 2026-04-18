@@ -1,0 +1,46 @@
+{
+  "skill_name": "pre-commit-review",
+  "evals": [
+    {
+      "id": 0,
+      "name": "python-bugs",
+      "prompt": "커밋 전에 스테이징된 변경사항 리뷰해줘.",
+      "expected_output": "Review flagging 3 bugs: mutable default arg, off-by-one in get_nth_item, implicit None return in find_user. Uses Critical/Warning/Suggestion format.",
+      "assertions": [
+        "Flags the mutable default argument (coupons=[]) in apply_discounts",
+        "Flags the off-by-one / broken loop logic in get_nth_item",
+        "Flags the implicit None return in find_user",
+        "Uses the Critical/Warning/Suggestion severity headings",
+        "Names the file cart.py in at least one finding"
+      ],
+      "files": []
+    },
+    {
+      "id": 1,
+      "name": "typescript-bugs",
+      "prompt": "diff 리뷰해줘.",
+      "expected_output": "Review flagging missing await in fetchUserName, bad non-null assertion in pickAdmins, forEach+async in saveAll. Uses Critical/Warning/Suggestion format.",
+      "assertions": [
+        "Flags the missing await on fetchUser",
+        "Flags the non-null assertion on nullable users in pickAdmins",
+        "Flags the forEach + async callback pattern in saveAll",
+        "Uses the Critical/Warning/Suggestion severity headings",
+        "Names the file api.ts in at least one finding"
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "clean-refactor",
+      "prompt": "commit 하기 전에 체크해줘.",
+      "expected_output": "Review should indicate the change is safe; no Critical findings; Critical marked _None_.",
+      "assertions": [
+        "Does NOT invent a Critical bug",
+        "Summary indicates the change is safe to commit",
+        "Uses the Critical/Warning/Suggestion severity headings",
+        "Critical section is empty or marked _None_"
+      ],
+      "files": []
+    }
+  ]
+}
