@@ -18,6 +18,41 @@
 
 - [Claude Code](https://docs.claude.com/en/docs/claude-code) (CLI, 데스크톱 앱, 웹, 혹은 IDE 확장)
 
+## 빠른 설치
+
+아래 블록 중 하나를 복사-붙여넣기 하세요. 각 블록은 단독으로 동작합니다(clone → 설치 → 정리). "프로젝트" 블록은 대상 프로젝트 루트에서 실행하세요.
+
+```bash
+# pre-commit-review — 개인 설치 (모든 프로젝트에서 사용 가능)
+TMP=$(mktemp -d) && \
+  git clone --depth 1 https://github.com/junimnjw/oh-my-godness.git "$TMP" && \
+  mkdir -p ~/.claude/skills && \
+  cp -r "$TMP/skills/pre-commit-review" ~/.claude/skills/ && \
+  rm -rf "$TMP"
+```
+
+```bash
+# pre-commit-review — 프로젝트 설치 (현재 프로젝트에서만; 프로젝트 루트에서 실행)
+TMP=$(mktemp -d) && \
+  git clone --depth 1 https://github.com/junimnjw/oh-my-godness.git "$TMP" && \
+  mkdir -p .claude/skills && \
+  cp -r "$TMP/skills/pre-commit-review" .claude/skills/ && \
+  rm -rf "$TMP"
+```
+
+```bash
+# code-wiki-writer — 프로젝트 설치 (프로젝트 루트에서 실행)
+TMP=$(mktemp -d) && \
+  git clone --depth 1 https://github.com/junimnjw/oh-my-godness.git "$TMP" && \
+  mkdir -p .claude/agents && \
+  cp "$TMP/.claude/agents/code-wiki-writer.md" .claude/agents/ && \
+  rm -rf "$TMP"
+```
+
+> `~/.claude/skills/` 혹은 `~/.claude/agents/` 디렉토리가 기존에 없었다면, 설치 후 **Claude Code를 한 번 재시작**해야 해당 디렉토리를 감시하기 시작합니다.
+
+심볼릭 링크 방식(`git pull`로 자동 업데이트)이나 개인/프로젝트 우선순위 등 세부 내용은 아래 상세 섹션을 참고하세요.
+
 ## 설치 — 스킬
 
 Claude Code는 두 곳에서 스킬을 찾으며, 앞쪽이 우선순위가 높습니다:

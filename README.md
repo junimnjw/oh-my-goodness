@@ -18,6 +18,41 @@ Claude Code skills and agents by [@junimnjw](https://github.com/junimnjw).
 
 - [Claude Code](https://docs.claude.com/en/docs/claude-code) (CLI, desktop, web, or IDE extension)
 
+## Quick install
+
+Copy-paste one block. Each block is self-contained: clones, installs, cleans up. Run from the target project directory for the "project" variants.
+
+```bash
+# pre-commit-review — personal (available in every project)
+TMP=$(mktemp -d) && \
+  git clone --depth 1 https://github.com/junimnjw/oh-my-godness.git "$TMP" && \
+  mkdir -p ~/.claude/skills && \
+  cp -r "$TMP/skills/pre-commit-review" ~/.claude/skills/ && \
+  rm -rf "$TMP"
+```
+
+```bash
+# pre-commit-review — project (this repo only; run from the project root)
+TMP=$(mktemp -d) && \
+  git clone --depth 1 https://github.com/junimnjw/oh-my-godness.git "$TMP" && \
+  mkdir -p .claude/skills && \
+  cp -r "$TMP/skills/pre-commit-review" .claude/skills/ && \
+  rm -rf "$TMP"
+```
+
+```bash
+# code-wiki-writer — project (run from the project root)
+TMP=$(mktemp -d) && \
+  git clone --depth 1 https://github.com/junimnjw/oh-my-godness.git "$TMP" && \
+  mkdir -p .claude/agents && \
+  cp "$TMP/.claude/agents/code-wiki-writer.md" .claude/agents/ && \
+  rm -rf "$TMP"
+```
+
+> If `~/.claude/skills/` or `~/.claude/agents/` didn't exist before, **restart Claude Code once** after the install so it starts watching the new directory.
+
+Want to symlink instead of copy (for `git pull` auto-updates), or understand the priority between personal and project scope? See the detailed sections below.
+
 ## Install — Skills
 
 Claude Code discovers skills in two places, in priority order:
