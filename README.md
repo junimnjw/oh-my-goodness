@@ -1,20 +1,24 @@
 # oh-my-godness
 
-Claude Code skills by [@junimnjw](https://github.com/junimnjw).
+Claude Code skills and agents by [@junimnjw](https://github.com/junimnjw).
 
 🇰🇷 [한국어 README](README.ko.md)
 
-## Skills
+## Contents
 
-### [`pre-commit-review`](skills/pre-commit-review)
+### Skills
 
-Reviews your staged changes (`git diff --staged`) for **bugs and logic errors** before you commit. Focused on Python and TypeScript. Emphasizes catching real bugs over style nits, and outputs findings grouped by severity (Critical / Warning / Suggestion).
+- [`pre-commit-review`](skills/pre-commit-review) — Reviews staged changes (`git diff --staged`) for bugs and logic errors before you commit. Focused on Python and TypeScript, grouped by severity (Critical / Warning / Suggestion).
+
+### Agents
+
+- [`code-wiki-writer`](.claude/agents/code-wiki-writer.md) — Generates bilingual (Korean + English) onboarding documentation for a source folder. Writes sectioned Markdown into `docs/wiki/ko/` and `docs/wiki/en/`, picking sections based on project shape. Re-running reconciles the wiki against the current code: wrong claims get corrected, stale paths get updated.
 
 ## Requirements
 
 - [Claude Code](https://docs.claude.com/en/docs/claude-code) (CLI, desktop, web, or IDE extension)
 
-## Install
+## Install — Skills
 
 Claude Code discovers skills in two places, in priority order:
 
@@ -40,8 +44,6 @@ cp -r /tmp/oh-my-godness/skills/pre-commit-review ~/.claude/skills/
 
 ### Project install (scoped to one repo)
 
-If you want the skill only inside a specific project:
-
 ```bash
 cd /path/to/your-project
 mkdir -p .claude/skills
@@ -55,8 +57,6 @@ git add .claude/skills/pre-commit-review
 
 ### Symlink option (auto-updates with `git pull`)
 
-If you want updates whenever you `git pull`, symlink instead of copying:
-
 ```bash
 mkdir -p ~/.claude/skills
 git clone https://github.com/junimnjw/oh-my-godness.git ~/code/oh-my-godness
@@ -64,17 +64,51 @@ git clone https://github.com/junimnjw/oh-my-godness.git ~/code/oh-my-godness
 ln -s ~/code/oh-my-godness/skills/pre-commit-review ~/.claude/skills/pre-commit-review
 ```
 
-### Verify the install
+### Verify
 
 ```bash
 ls ~/.claude/skills/pre-commit-review/SKILL.md
 ```
 
-If the file exists, try a trigger phrase in Claude Code like "review my staged changes". If Claude doesn't pick it up, restart Claude Code once (see the heads-up above).
+If the file exists, try a trigger phrase in Claude Code like "review my staged changes". If Claude doesn't pick it up, restart Claude Code once (see heads-up above).
+
+## Install — Agents
+
+Agents follow the same two-location model, but this repo ships `code-wiki-writer` as a **project-level** agent. For project scope:
+
+```bash
+cd /path/to/your-project
+mkdir -p .claude/agents
+
+git clone https://github.com/junimnjw/oh-my-godness.git /tmp/oh-my-godness
+cp /tmp/oh-my-godness/.claude/agents/code-wiki-writer.md .claude/agents/
+
+# Share with your team
+git add .claude/agents/code-wiki-writer.md
+```
+
+If you want the agent across all your projects, copy to `~/.claude/agents/` instead (same first-install restart caveat applies).
+
+### Verify
+
+```bash
+ls .claude/agents/code-wiki-writer.md
+```
+
+Then in Claude Code:
+
+```
+> src/ 폴더 온보딩 문서 만들어줘
+> write onboarding docs for ./packages/core
+```
+
+Claude will delegate to the agent, which writes pages under `docs/wiki/ko/` and `docs/wiki/en/`.
 
 ## Usage
 
-Stage some changes, then ask Claude Code to review:
+### `pre-commit-review`
+
+Stage some changes, then ask for a review:
 
 ```bash
 git add .
@@ -84,19 +118,36 @@ git add .
 # > diff 리뷰해줘
 ```
 
-Claude will run `git diff --staged`, look at the relevant files, and output findings grouped as **Critical / Warning / Suggestion**, ending with a verdict on whether it's safe to commit.
+Output: findings grouped as **Critical / Warning / Suggestion**, with a final verdict.
+
+### `code-wiki-writer`
+
+Point the agent at a source folder:
+
+```
+# in Claude Code:
+> @code-wiki-writer for src/
+> src/billing 폴더 온보딩 위키 만들어줘
+> docs/wiki 내용이 오래됐어, 업데이트해줘
+```
+
+Output: sectioned Markdown in `docs/wiki/ko/` and `docs/wiki/en/`. Re-running on an existing wiki reconciles stale claims against the current code rather than overwriting the whole thing.
 
 ## Uninstall
 
 ```bash
+# Skill
 rm -rf ~/.claude/skills/pre-commit-review
-# or for project-level:
 rm -rf /path/to/your-project/.claude/skills/pre-commit-review
+
+# Agent
+rm /path/to/your-project/.claude/agents/code-wiki-writer.md
+rm ~/.claude/agents/code-wiki-writer.md
 ```
 
 ## Contributing
 
-Issues and PRs welcome. If you're adding a new skill, put it under `skills/<skill-name>/` with a `SKILL.md` at the root. See [CLAUDE.md](CLAUDE.md) for the repo's conventions.
+Issues and PRs welcome. New skills go under `skills/<skill-name>/SKILL.md`; new agents go under `.claude/agents/<agent-name>.md`. See [CLAUDE.md](CLAUDE.md) for repo conventions.
 
 ## License
 
