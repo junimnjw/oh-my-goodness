@@ -16,24 +16,44 @@ Reviews your staged changes (`git diff --staged`) for **bugs and logic errors** 
 
 ## Install
 
-Claude Code loads skills from `~/.claude/skills/`. Any directory under there that contains a `SKILL.md` file becomes a skill Claude can trigger.
+Claude Code discovers skills in two places, in priority order:
 
-### Option A: Install a single skill (recommended)
+- **Personal** (`~/.claude/skills/`) — available across all your projects
+- **Project** (`<project>/.claude/skills/`) — scoped to one project, overrides personal with the same name
 
-Pick one skill and drop it into your skills directory:
+Both work the same way: drop a directory containing a `SKILL.md` and Claude Code picks it up. No registration step.
+
+### Personal install (recommended for most people)
 
 ```bash
-# Make sure the skills directory exists
+# 1. Create the directory if it doesn't exist yet
 mkdir -p ~/.claude/skills
 
-# Clone this repo anywhere you like (e.g. a workspace)
+# 2. Clone this repo anywhere (e.g. a workspace)
 git clone https://github.com/junimnjw/oh-my-godness.git /tmp/oh-my-godness
 
-# Copy just the skill you want
+# 3. Copy just the skill you want
 cp -r /tmp/oh-my-godness/skills/pre-commit-review ~/.claude/skills/
 ```
 
-### Option B: Symlink (auto-updates with `git pull`)
+> **Heads-up on first install:** if `~/.claude/skills/` didn't exist when your Claude Code session started, you'll need to **restart Claude Code** once before it starts watching the directory. After that, adding/editing/removing skills takes effect live in the current session.
+
+### Project install (scoped to one repo)
+
+If you want the skill only inside a specific project:
+
+```bash
+cd /path/to/your-project
+mkdir -p .claude/skills
+
+git clone https://github.com/junimnjw/oh-my-godness.git /tmp/oh-my-godness
+cp -r /tmp/oh-my-godness/skills/pre-commit-review .claude/skills/
+
+# Optional: commit it so your teammates get it too
+git add .claude/skills/pre-commit-review
+```
+
+### Symlink option (auto-updates with `git pull`)
 
 If you want updates whenever you `git pull`, symlink instead of copying:
 
@@ -50,7 +70,7 @@ ln -s ~/code/oh-my-godness/skills/pre-commit-review ~/.claude/skills/pre-commit-
 ls ~/.claude/skills/pre-commit-review/SKILL.md
 ```
 
-If the file exists, Claude Code will pick up the skill on its next session. Start a new Claude Code session and try a trigger phrase like "review my staged changes".
+If the file exists, try a trigger phrase in Claude Code like "review my staged changes". If Claude doesn't pick it up, restart Claude Code once (see the heads-up above).
 
 ## Usage
 
@@ -70,11 +90,13 @@ Claude will run `git diff --staged`, look at the relevant files, and output find
 
 ```bash
 rm -rf ~/.claude/skills/pre-commit-review
+# or for project-level:
+rm -rf /path/to/your-project/.claude/skills/pre-commit-review
 ```
 
 ## Contributing
 
-Issues and PRs welcome. If you're adding a new skill, put it under `skills/<skill-name>/` with a `SKILL.md` at the root.
+Issues and PRs welcome. If you're adding a new skill, put it under `skills/<skill-name>/` with a `SKILL.md` at the root. See [CLAUDE.md](CLAUDE.md) for the repo's conventions.
 
 ## License
 
