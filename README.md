@@ -25,7 +25,7 @@ Copy-paste one block. Each block is self-contained: clones, installs, cleans up.
 ```bash
 # pre-commit-review — personal (available in every project)
 TMP=$(mktemp -d) && \
-  git clone --depth 1 https://github.com/junimnjw/oh-my-godness.git "$TMP" && \
+  git clone --depth 1 https://github.com/junimnjw/oh-my-goodness.git "$TMP" && \
   mkdir -p ~/.claude/skills && \
   cp -r "$TMP/skills/pre-commit-review" ~/.claude/skills/ && \
   rm -rf "$TMP"
@@ -34,7 +34,7 @@ TMP=$(mktemp -d) && \
 ```bash
 # pre-commit-review — project (this repo only; run from the project root)
 TMP=$(mktemp -d) && \
-  git clone --depth 1 https://github.com/junimnjw/oh-my-godness.git "$TMP" && \
+  git clone --depth 1 https://github.com/junimnjw/oh-my-goodness.git "$TMP" && \
   mkdir -p .claude/skills && \
   cp -r "$TMP/skills/pre-commit-review" .claude/skills/ && \
   rm -rf "$TMP"
@@ -43,7 +43,7 @@ TMP=$(mktemp -d) && \
 ```bash
 # code-wiki-writer — project (run from the project root)
 TMP=$(mktemp -d) && \
-  git clone --depth 1 https://github.com/junimnjw/oh-my-godness.git "$TMP" && \
+  git clone --depth 1 https://github.com/junimnjw/oh-my-goodness.git "$TMP" && \
   mkdir -p .claude/agents && \
   cp "$TMP/.claude/agents/code-wiki-writer.md" .claude/agents/ && \
   rm -rf "$TMP"
@@ -69,10 +69,10 @@ Both work the same way: drop a directory containing a `SKILL.md` and Claude Code
 mkdir -p ~/.claude/skills
 
 # 2. Clone this repo anywhere (e.g. a workspace)
-git clone https://github.com/junimnjw/oh-my-godness.git /tmp/oh-my-godness
+git clone https://github.com/junimnjw/oh-my-goodness.git /tmp/oh-my-goodness
 
 # 3. Copy just the skill you want
-cp -r /tmp/oh-my-godness/skills/pre-commit-review ~/.claude/skills/
+cp -r /tmp/oh-my-goodness/skills/pre-commit-review ~/.claude/skills/
 ```
 
 > **Heads-up on first install:** if `~/.claude/skills/` didn't exist when your Claude Code session started, you'll need to **restart Claude Code** once before it starts watching the directory. After that, adding/editing/removing skills takes effect live in the current session.
@@ -83,8 +83,8 @@ cp -r /tmp/oh-my-godness/skills/pre-commit-review ~/.claude/skills/
 cd /path/to/your-project
 mkdir -p .claude/skills
 
-git clone https://github.com/junimnjw/oh-my-godness.git /tmp/oh-my-godness
-cp -r /tmp/oh-my-godness/skills/pre-commit-review .claude/skills/
+git clone https://github.com/junimnjw/oh-my-goodness.git /tmp/oh-my-goodness
+cp -r /tmp/oh-my-goodness/skills/pre-commit-review .claude/skills/
 
 # Optional: commit it so your teammates get it too
 git add .claude/skills/pre-commit-review
@@ -94,9 +94,9 @@ git add .claude/skills/pre-commit-review
 
 ```bash
 mkdir -p ~/.claude/skills
-git clone https://github.com/junimnjw/oh-my-godness.git ~/code/oh-my-godness
+git clone https://github.com/junimnjw/oh-my-goodness.git ~/code/oh-my-goodness
 
-ln -s ~/code/oh-my-godness/skills/pre-commit-review ~/.claude/skills/pre-commit-review
+ln -s ~/code/oh-my-goodness/skills/pre-commit-review ~/.claude/skills/pre-commit-review
 ```
 
 ### Verify
@@ -115,8 +115,8 @@ Agents follow the same two-location model, but this repo ships `code-wiki-writer
 cd /path/to/your-project
 mkdir -p .claude/agents
 
-git clone https://github.com/junimnjw/oh-my-godness.git /tmp/oh-my-godness
-cp /tmp/oh-my-godness/.claude/agents/code-wiki-writer.md .claude/agents/
+git clone https://github.com/junimnjw/oh-my-goodness.git /tmp/oh-my-goodness
+cp /tmp/oh-my-goodness/.claude/agents/code-wiki-writer.md .claude/agents/
 
 # Share with your team
 git add .claude/agents/code-wiki-writer.md
