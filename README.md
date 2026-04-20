@@ -1,4 +1,4 @@
-# oh-my-godness
+# oh-my-goodness
 
 Claude Code skills and agents by [@junimnjw](https://github.com/junimnjw).
 
