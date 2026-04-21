@@ -30,11 +30,11 @@ Default structure:
 
 - One section per workstream or subproject
 - Under each section:
+  - Metrics first, when the user provided them for that workstream
   - Major accomplishments
   - Progress updates
   - Issues
   - Optional next actions only when leadership is likely to ask
-- Metrics section when the user provided metric tables
 - "Additional items to verify" outside the main body when evidence is incomplete
 
 Formatting rules:
@@ -65,6 +65,7 @@ Assume the default audience is management, including executives, unless the user
    - If a repo or folder is provided, inspect high-signal sources only: `git log`, changed files, release notes, issue references, PR titles, and nearby READMEs.
    - Prefer concrete artifacts over memory-like summaries.
 3. Normalize the evidence inside each workstream or subproject:
+   - Metrics: place them at the top of the section when available
    - Major accomplishments: only items with concrete results
    - Progress updates: only items with meaningful movement since last week
    - Issues: unresolved problems, risks, or delays
@@ -88,6 +89,7 @@ When reading a repository, start narrow and stay grounded:
 - If issue IDs or ticket numbers appear, capture them exactly rather than paraphrasing them away.
 - Distinguish user-visible outcomes from internal chores. Include chores only when they materially reduced risk, improved speed, improved maintainability, or advanced automation.
 - If metrics are provided as tables, preserve the metric values exactly.
+- If metrics belong to a specific workstream, keep them inside that workstream section rather than moving them into a global metrics section.
 - If a lab update arrives in English, translate it into Korean naturally, then reorder it according to local management priorities rather than preserving the original email sequence.
 
 If the available evidence is noisy or incomplete, say so briefly in the handoff and keep the report conservative.

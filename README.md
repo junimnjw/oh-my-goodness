@@ -191,7 +191,7 @@ Pass the reporting window plus whatever evidence you have:
 > 해외 연구소 메일, PR 링크, 지표 테이블 기준으로 임원 보고용 주간 보고 정리해줘
 ```
 
-Output: a concise report body that can be pasted into Confluence, an internal discussion, or a PR description. It favors practical, evidence-based wording; keeps metrics exact; and can append one representative PR link to each relevant bullet.
+Output: a concise report body that can be pasted into Confluence, an internal discussion, or a PR description. Metrics stay inside each workstream section at the top, values are preserved exactly, and one representative PR link can be appended to each relevant bullet.
 
 ## Uninstall
 
