@@ -13,6 +13,7 @@ Claude Code skills and agents by [@junimnjw](https://github.com/junimnjw).
 ### Agents
 
 - [`code-wiki-writer`](.claude/agents/code-wiki-writer.md) — Generates bilingual (Korean + English) onboarding documentation for a source folder. Writes sectioned Markdown into `docs/wiki/ko/` and `docs/wiki/en/`, picking sections based on project shape. Re-running reconciles the wiki against the current code: wrong claims get corrected, stale paths get updated.
+- [`weekly-report-writer`](.claude/agents/weekly-report-writer.md) — Turns mixed evidence such as lab updates, notes, PR titles with links, source folders, and KPI tables into a concise management-grade weekly report. Especially useful for executive or manager sharing where metrics, coordination outcomes, issues, and evidence-based wording matter.
 
 ## Requirements
 
@@ -46,6 +47,15 @@ TMP=$(mktemp -d) && \
   git clone --depth 1 https://github.com/junimnjw/oh-my-goodness.git "$TMP" && \
   mkdir -p .claude/agents && \
   cp "$TMP/.claude/agents/code-wiki-writer.md" .claude/agents/ && \
+  rm -rf "$TMP"
+```
+
+```bash
+# weekly-report-writer — project (run from the project root)
+TMP=$(mktemp -d) && \
+  git clone --depth 1 https://github.com/junimnjw/oh-my-goodness.git "$TMP" && \
+  mkdir -p .claude/agents && \
+  cp "$TMP/.claude/agents/weekly-report-writer.md" .claude/agents/ && \
   rm -rf "$TMP"
 ```
 
@@ -109,7 +119,7 @@ If the file exists, try a trigger phrase in Claude Code like "review my staged c
 
 ## Install — Agents
 
-Agents follow the same two-location model, but this repo ships `code-wiki-writer` as a **project-level** agent. For project scope:
+Agents follow the same two-location model, and this repo currently ships `code-wiki-writer` and `weekly-report-writer` as **project-level** agents. For project scope:
 
 ```bash
 cd /path/to/your-project
@@ -117,9 +127,10 @@ mkdir -p .claude/agents
 
 git clone https://github.com/junimnjw/oh-my-goodness.git /tmp/oh-my-goodness
 cp /tmp/oh-my-goodness/.claude/agents/code-wiki-writer.md .claude/agents/
+cp /tmp/oh-my-goodness/.claude/agents/weekly-report-writer.md .claude/agents/
 
 # Share with your team
-git add .claude/agents/code-wiki-writer.md
+git add .claude/agents/code-wiki-writer.md .claude/agents/weekly-report-writer.md
 ```
 
 If you want the agent across all your projects, copy to `~/.claude/agents/` instead (same first-install restart caveat applies).
@@ -168,6 +179,20 @@ Point the agent at a source folder:
 
 Output: sectioned Markdown in `docs/wiki/ko/` and `docs/wiki/en/`. Re-running on an existing wiki reconciles stale claims against the current code rather than overwriting the whole thing.
 
+### `weekly-report-writer`
+
+Pass the reporting window plus whatever evidence you have:
+
+```
+# in Claude Code:
+> @weekly-report-writer summarize this week's progress from this repo
+> 이번 주 작업 내역 바탕으로 팀 공유용 주간 보고 써줘
+> 지난주 커밋 + 메모 보고 매니저용 업데이트 만들어줘
+> 해외 연구소 메일, PR 링크, 지표 테이블 기준으로 임원 보고용 주간 보고 정리해줘
+```
+
+Output: a concise report body that can be pasted into Confluence, an internal discussion, or a PR description. Metrics stay inside each workstream section at the top, values are preserved exactly, and one representative PR link can be appended to each relevant bullet.
+
 ## Uninstall
 
 ```bash
@@ -177,7 +202,9 @@ rm -rf /path/to/your-project/.claude/skills/pre-commit-review
 
 # Agent
 rm /path/to/your-project/.claude/agents/code-wiki-writer.md
+rm /path/to/your-project/.claude/agents/weekly-report-writer.md
 rm ~/.claude/agents/code-wiki-writer.md
+rm ~/.claude/agents/weekly-report-writer.md
 ```
 
 ## Contributing

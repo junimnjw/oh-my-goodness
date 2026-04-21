@@ -13,6 +13,7 @@
 ### 에이전트 (Agents)
 
 - [`code-wiki-writer`](.claude/agents/code-wiki-writer.md) — 지정한 소스 폴더를 분석해 **이중 언어(한글 + 영어)** 온보딩 문서를 생성합니다. `docs/wiki/ko/`와 `docs/wiki/en/`에 섹션별 Markdown을 작성하며, 프로젝트 성격(CLI, 웹앱, 라이브러리 등)에 맞춰 섹션을 자동 선택합니다. 재실행 시 기존 위키와 현재 코드를 대조해 **잘못된 내용은 수정**하고 낡은 경로는 업데이트합니다.
+- [`weekly-report-writer`](.claude/agents/weekly-report-writer.md) — 해외 연구소 보고, 메모, PR 제목+링크, 소스 폴더, KPI 테이블처럼 섞여 있는 근거를 읽어 관리층 공유용 주간 보고로 정리합니다. 특히 임원/중간관리자 보고처럼 지표, 협의 성과, 이슈, 근거 기반 문체가 중요한 상황에 맞습니다.
 
 ## 요구 사항
 
@@ -46,6 +47,15 @@ TMP=$(mktemp -d) && \
   git clone --depth 1 https://github.com/junimnjw/oh-my-goodness.git "$TMP" && \
   mkdir -p .claude/agents && \
   cp "$TMP/.claude/agents/code-wiki-writer.md" .claude/agents/ && \
+  rm -rf "$TMP"
+```
+
+```bash
+# weekly-report-writer — 프로젝트 설치 (프로젝트 루트에서 실행)
+TMP=$(mktemp -d) && \
+  git clone --depth 1 https://github.com/junimnjw/oh-my-goodness.git "$TMP" && \
+  mkdir -p .claude/agents && \
+  cp "$TMP/.claude/agents/weekly-report-writer.md" .claude/agents/ && \
   rm -rf "$TMP"
 ```
 
@@ -109,7 +119,7 @@ ls ~/.claude/skills/pre-commit-review/SKILL.md
 
 ## 설치 — 에이전트
 
-에이전트도 같은 두 위치 모델을 따릅니다. 이 저장소의 `code-wiki-writer`는 **프로젝트 레벨** 에이전트로 제공됩니다:
+에이전트도 같은 두 위치 모델을 따르며, 이 저장소의 `code-wiki-writer`와 `weekly-report-writer`는 **프로젝트 레벨** 에이전트로 제공합니다:
 
 ```bash
 cd /path/to/your-project
@@ -117,9 +127,10 @@ mkdir -p .claude/agents
 
 git clone https://github.com/junimnjw/oh-my-goodness.git /tmp/oh-my-goodness
 cp /tmp/oh-my-goodness/.claude/agents/code-wiki-writer.md .claude/agents/
+cp /tmp/oh-my-goodness/.claude/agents/weekly-report-writer.md .claude/agents/
 
 # 팀원과 공유하려면 커밋
-git add .claude/agents/code-wiki-writer.md
+git add .claude/agents/code-wiki-writer.md .claude/agents/weekly-report-writer.md
 ```
 
 모든 프로젝트에서 쓰고 싶다면 `~/.claude/agents/`에 복사하세요 (첫 설치 시 재시작 주의 사항은 동일).
@@ -168,6 +179,20 @@ git add .
 
 결과: `docs/wiki/ko/`와 `docs/wiki/en/` 아래에 섹션별 Markdown 파일. 기존 위키가 있으면 통째로 덮어쓰지 않고 **현재 코드와 대조해 잘못된 내용만 수정**합니다.
 
+### `weekly-report-writer`
+
+보고 기간과 가지고 있는 근거를 함께 주면 됩니다:
+
+```
+# Claude Code에서:
+> @weekly-report-writer summarize this week's progress from this repo
+> 이번 주 작업 내역 바탕으로 팀 공유용 주간 보고 써줘
+> 지난주 커밋 + 메모 보고 매니저용 업데이트 만들어줘
+> 해외 연구소 메일, PR 링크, 지표 테이블 기준으로 임원 보고용 주간 보고 정리해줘
+```
+
+결과: Confluence, 사내 Discussion, PR 설명란 등에 바로 붙여넣을 수 있는 보고 본문 초안. 지표는 각 소과제 섹션 맨 앞에 배치하고 정확한 값 그대로 유지하며, 각 항목 끝에 대표 PR 링크 1개를 붙일 수 있고, 과장 없는 실무형 문체로 정리합니다.
+
 ## 제거
 
 ```bash
@@ -177,7 +202,9 @@ rm -rf /path/to/your-project/.claude/skills/pre-commit-review
 
 # 에이전트
 rm /path/to/your-project/.claude/agents/code-wiki-writer.md
+rm /path/to/your-project/.claude/agents/weekly-report-writer.md
 rm ~/.claude/agents/code-wiki-writer.md
+rm ~/.claude/agents/weekly-report-writer.md
 ```
 
 ## 기여
