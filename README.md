@@ -13,7 +13,7 @@ Claude Code skills and agents by [@junimnjw](https://github.com/junimnjw).
 ### Agents
 
 - [`code-wiki-writer`](.claude/agents/code-wiki-writer.md) — Generates bilingual (Korean + English) onboarding documentation for a source folder. Writes sectioned Markdown into `docs/wiki/ko/` and `docs/wiki/en/`, picking sections based on project shape. Re-running reconciles the wiki against the current code: wrong claims get corrected, stale paths get updated.
-- [`weekly-report-writer`](.claude/agents/weekly-report-writer.md) — Turns mixed evidence such as lab updates, notes, PR titles with links, source folders, and KPI tables into a concise management-grade weekly report. Especially useful for executive or manager sharing where metrics, coordination outcomes, issues, and evidence-based wording matter.
+- [`weekly-report-writer`](.claude/agents/weekly-report-writer.md) — Turns mixed evidence such as lab updates, notes, PR titles with links, source folders, and KPI tables into a concise management-grade weekly report. It can also work interview-style: asking one focused question at a time, collecting missing details progressively, then synthesizing them into a final report. When the user does not specify a week, it defaults to the current workweek based on the run date, and it can report operational metrics such as active sessions as well as user counts.
 
 ## Requirements
 
@@ -192,6 +192,14 @@ Pass the reporting window plus whatever evidence you have:
 ```
 
 Output: a concise report body that can be pasted into Confluence, an internal discussion, or a PR description. Metrics stay inside each workstream section at the top, values are preserved exactly, and one representative PR link can be appended to each relevant bullet.
+
+If you do not have the full material ready, you can also let it interview you step by step instead of pasting everything at once.
+
+If you do not specify the reporting window, the agent defaults to the current workweek based on the run date, using Monday through Friday in the user's local timezone.
+
+By default, the narrative covers the current workweek, while KPI tables use the previous completed week (`W-1`) unless the user specifies a different metric window.
+
+If your source materials use broader program names than the report should show, the agent can preserve your preferred display names in the final report.
 
 ## Uninstall
 
