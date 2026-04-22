@@ -201,6 +201,8 @@ By default, the narrative covers the current workweek, while KPI tables use the 
 
 If your source materials use broader program names than the report should show, the agent can preserve your preferred display names in the final report.
 
+The agent also favors readability over implementation-heavy phrasing. If a sentence becomes too dense, it should lead with the business or operational outcome and move technical detail later in the line.
+
 ## Uninstall
 
 ```bash

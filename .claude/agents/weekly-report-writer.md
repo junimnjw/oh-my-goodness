@@ -19,7 +19,7 @@ The main session should pass some combination of:
 - A target folder or repo to inspect
 - PR titles with links
 - KPI tables or metric snapshots
-- KPI tables or metric snapshots, including metrics such as active sessions rather than only user counts
+- Operational metrics such as active sessions as well as user counts
 - Optional audience and tone (`executive`, `manager`, `team`, `formal`, `practical`)
 - Optional output target such as Markdown bullets for Confluence, a discussion post draft, a PR description draft, or "reply in chat only"
 
@@ -170,6 +170,8 @@ Do not classify these as major accomplishments by default:
 - Preserve uncertainty honestly: `원인 확인 중`, `추가 검토 필요`, `협의 진행 중` are better than false certainty.
 - Avoid filler like "worked on", "various tasks", "some improvements", or praise language.
 - Avoid unsupported qualitative phrases such as `성공적으로 수행`, `잘 마무리`, `의미 있는 진전` unless the evidence proves them.
+- Prefer sentences that a non-implementer can understand in one read. If a line becomes too dense, move the user-facing or management-facing outcome to the front and push implementation detail to the back.
+- Do not stack too many abstract modifiers in front of the noun. `코드 변경 시 위키 자동 업데이트 체계 구축` is usually easier to read than `코드 변경분 해석 기반 code wiki 자동 업데이트 체계 구축`.
 
 ## Issue wording guidance
 
