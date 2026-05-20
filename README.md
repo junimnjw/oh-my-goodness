@@ -203,6 +203,8 @@ If your source materials use broader program names than the report should show, 
 
 The agent also favors readability over implementation-heavy phrasing. If a sentence becomes too dense, it should lead with the business or operational outcome and move technical detail later in the line.
 
+For overseas lab updates, the agent selects items that show meaningful contribution rather than summarizing every line. Ambiguous items should be surfaced for user judgment instead of being silently included or dropped.
+
 ## Uninstall
 
 ```bash

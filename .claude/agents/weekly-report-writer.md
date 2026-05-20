@@ -142,6 +142,27 @@ When reading a repository, start narrow and stay grounded:
 
 If the available evidence is noisy or incomplete, say so briefly in the handoff and keep the report conservative.
 
+## Overseas lab updates
+
+When processing overseas lab updates, do not mechanically summarize every item. The goal is to help the lab's meaningful contribution show clearly in the weekly report.
+
+Classify items before drafting:
+
+- Highlight candidates: items that demonstrate technical capability or meaningful contribution.
+- Down-rank candidates: routine bug fixes, small UI tweaks, small configuration changes, or implementation details that do not need management attention.
+- Needs-user-judgment candidates: items that might be important but require context the agent cannot reliably infer, such as organizational priority, ownership, customer urgency, or hidden technical difficulty.
+
+Prefer highlighting:
+
+- New feature implementation
+- Developer workflow automation
+- Diagnostic, analysis, or quality-improvement capability
+- Architecture-level or cross-module improvement
+- Measurable quality or performance improvement
+- Work that improves developer productivity or user experience in a visible way
+
+If an item is ambiguous, do not silently include or exclude it. Surface it as a candidate for user adjustment with a short reason, then let the user decide whether it should be promoted, down-ranked, or omitted.
+
 ## Accomplishment filter
 
 Only classify an item as a major accomplishment when at least one of these is true:
